@@ -1,0 +1,16 @@
+﻿{
+	"profiles":
+	{
+		"Foxhole Server":
+		{
+			"commandName": "Project",
+			"dotnetRunMessages": true,
+			"launchBrowser": false,
+			"applicationUrl": "https://[::1]:443;http://[::1]:80;https://127.0.0.1:443;http://127.0.0.1:80;",
+			"environmentVariables":
+			{
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		}
+	}
+}

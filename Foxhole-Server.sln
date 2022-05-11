@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foxhole-Server", "Foxhole-Server\Foxhole-Server.csproj", "{35B409A3-BDC1-44C1-A845-B516539B0B41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35B409A3-BDC1-44C1-A845-B516539B0B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35B409A3-BDC1-44C1-A845-B516539B0B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35B409A3-BDC1-44C1-A845-B516539B0B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35B409A3-BDC1-44C1-A845-B516539B0B41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B56B3593-D7ED-4CBB-B1E1-6FC63225B994}
+	EndGlobalSection
+EndGlobal
