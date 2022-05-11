@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 # Local server configuration file.
 Config.toml
+
+# Local key and IV for encryption.
+Encryption_Key.txt
+Encryption_IV.txt
