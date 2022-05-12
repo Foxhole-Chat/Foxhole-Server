@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Foxhole_Server.Models
 {
@@ -7,6 +10,10 @@ namespace Foxhole_Server.Models
 		public DbSet<Burrow> Burrows { get; set; }
 		public DbSet<Room> Rooms { get; set; }
 		public DbSet<Category> Categories { get; set; }
+
+		public DbSet<Channel> Channels { get; set; }
+
+		public DbSet<Message> Messages { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options_builder)
 			=> options_builder.UseNpgsql("Host=" + Config.PostgreSQL.Server_Address + ';' +
@@ -17,13 +24,33 @@ namespace Foxhole_Server.Models
 		protected override void OnModelCreating(ModelBuilder model_builder)
 		{
 			model_builder.HasDefaultSchema("Server");
-			model_builder.Entity<Burrow>()
-				.Property(burrow => burrow.ID)
-				.HasConversion
-				(
-					v => new Guid(),
-					v => Convert.ToBase64String(v.ToByteArray())
-				);
+
+			IEnumerable<PropertyInfo> burrow_context_DbSets = typeof(Burrow_Context).GetProperties().Where(property => property.PropertyType.Name[..5] == "DbSet");
+
+			foreach (PropertyInfo dbset in burrow_context_DbSets)
+			{
+
+				Type table = dbset.PropertyType.GetGenericArguments()[0];
+				PropertyInfo[] table_properties = table.GetProperties();
+
+				foreach (PropertyInfo property in table_properties)
+				{
+					IEnumerable<Attribute> property_attributes = property.GetCustomAttributes();
+
+					if (((Datatype)property_attributes.Single(attribute => attribute.GetType() == typeof(Datatype))).Type.ToLower() == "uuid" &&
+						property.PropertyType == typeof(string))
+					{
+						model_builder
+							.Entity(table)
+							.Property(property.Name)
+							.HasConversion
+							(
+								new ValueConverter<string, Guid>(value => new Guid(Convert.FromBase64String(value)),
+									value => Convert.ToBase64String(value.ToByteArray()))
+							);
+					}
+				}
+			}
 		}
 
 		public Burrow_Context(DbContextOptions<Burrow_Context> options) : base(options)
@@ -31,6 +58,8 @@ namespace Foxhole_Server.Models
 			Burrows = Set<Burrow>();
 			Rooms = Set<Room>();
 			Categories = Set<Category>();
+			Channels = Set<Channel>();
+			Messages = Set<Message>();
 		}
 	}
 }

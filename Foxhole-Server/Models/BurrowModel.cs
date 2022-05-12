@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Foxhole_Server.Models
+﻿namespace Foxhole_Server.Models
 {
 	[AttributeUsage(AttributeTargets.Property)]
 	public class Default_Value : Attribute
@@ -44,7 +42,6 @@ namespace Foxhole_Server.Models
 		[Primary_Key]
 		[Unique_Key]
 		[Default_Value("gen_random_uuid()")]
-		[Column(TypeName = "uuid")]
 		public string ID { get; set; } = string.Empty;
 
 		[Datatype("text")]
@@ -56,11 +53,11 @@ namespace Foxhole_Server.Models
 		[Primary_Key]
 		[Unique_Key]
 		[Default_Value("gen_random_uuid()")]
-		public Guid ID { get; set; }
+		public string ID { get; set; } = string.Empty;
 
 		[Datatype("uuid")]
 		[Foreign_Key("Burrows", "ID")]
-		public Guid Burrow_ID { get; set; }
+		public string Burrow_ID { get; set; } = string.Empty;
 
 		[Datatype("text")]
 		public string Name { get; set; } = string.Empty;
@@ -71,13 +68,31 @@ namespace Foxhole_Server.Models
 		[Primary_Key]
 		[Unique_Key]
 		[Default_Value("gen_random_uuid()")]
-		public Guid ID { get; set; }
+		public string ID { get; set; } = string.Empty;
 
 		[Datatype("uuid")]
 		[Foreign_Key("Rooms", "ID")]
-		public Guid Room_ID { get; set; }
+		public string Room_ID { get; set; } = string.Empty;
 
 		[Datatype("text")]
 		public string Name { get; set; } = string.Empty;
+	}
+
+	public class Channel
+	{
+		[Datatype("uuid")]
+		[Primary_Key]
+		[Unique_Key]
+		[Default_Value("gen_random_uuid()")]
+		public string ID { get; set; } = string.Empty;
+	}
+
+	public class Message
+	{
+		[Datatype("uuid")]
+		[Primary_Key]
+		[Unique_Key]
+		[Default_Value("gen_random_uuid()")]
+		public string ID { get; set; } = string.Empty;
 	}
 }

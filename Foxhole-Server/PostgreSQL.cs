@@ -107,8 +107,6 @@ namespace Foxhole_Server
 				foreach (PropertyInfo dbset in burrow_context_DbSets)
 				{
 
-					dbset.GetType().GetGenericArguments();
-
 					Type table = dbset.PropertyType.GetGenericArguments()[0];
 					PropertyInfo[] table_properties = table.GetProperties();
 
@@ -124,6 +122,7 @@ namespace Foxhole_Server
 						table_arguments += ' ' + ((Datatype)property_attributes.Single(attribute => attribute.GetType() == typeof(Datatype))).Type;
 
 						if (Nullable.GetUnderlyingType(property.GetType()) == null) { table_arguments += " NOT NULL"; }
+
 
 						foreach (Attribute property_attribute in property_attributes)
 						{
