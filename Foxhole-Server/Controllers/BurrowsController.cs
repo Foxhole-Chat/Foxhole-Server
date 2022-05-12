@@ -1,6 +1,5 @@
 ﻿using Foxhole_Server.Models;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Foxhole_Server.Controllers
 {
@@ -13,7 +12,7 @@ namespace Foxhole_Server.Controllers
 		{
 			using Burrow_Context schema = new(new());
 
-			return new(JsonConvert.SerializeObject(schema.Burrows));
+			return new(schema.Burrows.ToArray());
 		}
 	}
 }

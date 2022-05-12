@@ -1,4 +1,6 @@
-﻿namespace Foxhole_Server.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Foxhole_Server.Models
 {
 	[AttributeUsage(AttributeTargets.Property)]
 	public class Default_Value : Attribute
@@ -42,7 +44,8 @@
 		[Primary_Key]
 		[Unique_Key]
 		[Default_Value("gen_random_uuid()")]
-		public Guid ID { get; set; }
+		[Column(TypeName = "uuid")]
+		public string ID { get; set; } = string.Empty;
 
 		[Datatype("text")]
 		public string Name { get; set; } = string.Empty;

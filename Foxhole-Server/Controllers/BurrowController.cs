@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Foxhole_Server.Controllers
 {
@@ -11,14 +10,22 @@ namespace Foxhole_Server.Controllers
 	public class BurrowController : ControllerBase
 	{
 		[HttpGet]
-		public JsonResult Get(Guid ID)
+		public JsonResult Get(string ID)
 		{
+			Burrow? burrow;
 			using (Burrow_Context schema = new(new()))
 			{
-
+				burrow = schema.Burrows.SingleOrDefault
+				(
+					burrow => burrow.ID ==
+							ID
+							.Replace('_', '/')
+							.Replace('-', '+')
+				);
 			}
+			if (burrow == null) { return new(new { message = "The burrow you requested does not exist", status = 404 }); }
 
-			return new("{}");
+			return new(burrow);
 		}
 	}
 }

@@ -17,6 +17,13 @@ namespace Foxhole_Server.Models
 		protected override void OnModelCreating(ModelBuilder model_builder)
 		{
 			model_builder.HasDefaultSchema("Server");
+			model_builder.Entity<Burrow>()
+				.Property(burrow => burrow.ID)
+				.HasConversion
+				(
+					v => new Guid(),
+					v => Convert.ToBase64String(v.ToByteArray())
+				);
 		}
 
 		public Burrow_Context(DbContextOptions<Burrow_Context> options) : base(options)
