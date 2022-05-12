@@ -4,9 +4,9 @@ namespace Foxhole_Server.Models
 {
 	public class Burrow_Context : DbContext
 	{
-		public DbSet<Burrow>? Burrows { get; set; }
-		public DbSet<Room>? Rooms { get; set; }
-		public DbSet<Category>? Categories { get; set; }
+		public DbSet<Burrow> Burrows { get; set; }
+		public DbSet<Room> Rooms { get; set; }
+		public DbSet<Category> Categories { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options_builder)
 			=> options_builder.UseNpgsql("Host=" + Config.PostgreSQL.Server_Address + ';' +
@@ -19,6 +19,11 @@ namespace Foxhole_Server.Models
 			model_builder.HasDefaultSchema("Server");
 		}
 
-		public Burrow_Context(DbContextOptions<Burrow_Context> options) : base(options) { }
+		public Burrow_Context(DbContextOptions<Burrow_Context> options) : base(options)
+		{
+			Burrows = Set<Burrow>();
+			Rooms = Set<Room>();
+			Categories = Set<Category>();
+		}
 	}
 }
